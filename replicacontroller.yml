@@ -10,9 +10,9 @@ spec:
     app: amazonapp
   template: 
     metadata:
-      name: amazonapp
+      name: amazonap
       labels:
-        apps: rc-amazonapp
+        apps: amazonapp
     spec:
       containers:
         - name: nginx
