@@ -6,13 +6,13 @@ metadata:
     apps: rc-amazonapp
 spec:
   replicas: 5
-  selectors:
+  selector:
     app: amazonapp
   template: 
     metadata:
       name: amazonapp
       labels:
-        apps: amazonapp
+        apps: amapp
     spec:
       containers:
         - name: nginx
