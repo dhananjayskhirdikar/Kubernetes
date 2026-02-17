@@ -1,40 +1,36 @@
-apiVersion: v1
-kind: Pod
-metadata:
+apiVersion:  v1  
+kind: Pod  
+metadata: 
   name: nginxnp
-  namespace: amazonns
-  labels:
-    apps: nginxnp
+  namespace: amazonns 
+  labels: 
+   app: nginxnp
 spec: 
   containers:
-  - name : nginx 
+  - name: nginx 
     image: nginx:latest
-    ports: 
+    ports:
     - containerPort: 80
-
 ---
-
-apiVersion: v1
+apiVersion:  v1 
 kind: Service
-metadata: 
-  name: nodeport
-  namespace: amazonns
-  labels:
-    apps: nodeport
-spec: 
+metadata:
+   name: nodeport
+   namespace: amazonns
+   labels:
+     app: nodeport
+spec:
     selector:
          app: nginxnp
     ports:
        - protocol: TCP
          port: 80
          targetPort: 80
-    type: NodePort 
-
----
-
+    type: NodePort
+--- 
 apiVersion: v1 
 kind: Namespace
-metadata:
+metadata: 
   name: amazonns
   labels:
-    apps: amazonns
+    app: amazonns
