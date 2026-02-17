@@ -1,0 +1,21 @@
+apiVersion: v1 
+kind: ReplicationController 
+metadata:
+  name: rc-amazonapp
+  labels:
+    apps: rc-amazonapp
+spec:
+  replicas: 5
+  selectors:
+    app: amazonapp
+  template: 
+    metadata:
+      name: amazonapp
+      labels:
+        apps: amazonapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+          - containerPort: 80
