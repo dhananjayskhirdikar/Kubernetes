@@ -12,7 +12,7 @@ spec:
     metadata:
       name: jioap
       labels:
-        apps: jioapp
+        app: jioapp
     spec:
       containers:
         - name: nginx
