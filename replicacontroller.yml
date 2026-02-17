@@ -12,7 +12,7 @@ spec:
     metadata:
       name: amazonapp
       labels:
-        apps: amapp
+        apps: amazonapp
     spec:
       containers:
         - name: nginx
