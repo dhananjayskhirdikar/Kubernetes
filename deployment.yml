@@ -14,7 +14,7 @@ spec:
       matchLabels: 
         app: nginxdeployment
     replicas: 3
-    templates:
+    template:
       metadata:
         labels:
            app: nginxdeployment
