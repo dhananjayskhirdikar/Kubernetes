@@ -15,10 +15,11 @@ spec:
       labels:
          app: mysqlstatefulset
     spec:
-    - containers: mysqlstatefulset
-      image: mysql:latest
-      ports:
-      - containerPort: 3306
-      env:
-      - name: MYSQL_ROOT_PASSWORD
-        value: "12345678"
+      containers: 
+      - name: mysqlstatefulset
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "12345678"
