@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: StatefulState
+metadata: 
+    name: mysqlstateful
+    labels: 
+      app: mysqlstateful
+spec:
+    replicas: 3
+    selector:
+      matchLabels: 
+          app: mysqlstateful
+    template:
+        metadata: 
+          name: mysqlstateful
+          labels:
+            app: mysqlstateful
+        spec: 
+          containers:
+          - name: mysqlstateful
+            image: mysql:latest
+            ports:
+            - containerPort: 3306
+            env: 
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: mysqlkey
+             
+
