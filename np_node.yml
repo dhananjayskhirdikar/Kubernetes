@@ -1,29 +1,32 @@
-apiVersion: v1
-kind: Pod 
-metadata:
-  name: nginxnp
-  labels: 
-    apps: nginxnp
-spec: 
-  containers:
-  - name: nginx
-    image: nginx:latest
-    ports:
-    - containerPort: 80
-
----
-apiVersion: v1  
-kind: Service
-metadata: 
-   name: nodeport
-   labels: 
-     apps: nodeport
-spec: 
-   selector:
-        app: nginxnp
-   ports:
-      - protocol: TCP
-        port: 80
-        targetPort: 80
-   type: NodePort    
+apiVersion:  v1                 #➡️ Uses Kubernetes core API version v1.
+kind: Pod                       #➡️ Creates a Pod resource.
+metadata:                       #➡️ Contains identity information of the Pod.
+  name: nginxnp                 #➡️ Pod name is nginxnp.
+  labels:                       #➡️ Defines labels to identify this Pod.
+   app: nginxnp                 #➡️ Adds label key apps with value nginxnp.
+spec:                           #➡️ Defines how the Pod should run.
+  containers:                   #➡️ Lists containers inside this Pod.
+  - name: nginx                 #➡️ Container name is nginx.
+    image: nginx:latest         #➡️ Uses nginx latest image from Docker Hub.
+    ports:                      #➡️ Declares container ports.
+    - containerPort: 80         #➡️ Container listens on port 80.
+---                             #➡️ New Kubernetes resource in same file.
+apiVersion:  v1                 #➡️ Using core API again.
+kind: Service                   #➡️ Creates a Service object.
+metadata:                       #➡️ Service identity information.
+   name: nodeport               #➡️ Service name is nodeport.
+   labels:                      #➡️ Adds label for organizing the Service.
+     app: nodeport              
+spec:                           #➡️ Defines Service behavior.
+    selector:                   #➡️ Specifies which Pods this service should route traffic to.
+         app: nginxnp           #➡️ The Service will forward traffic to pods that have the label app=nginxnp
+    ports:                      #➡️ Service uses TCP protocol.
+       - protocol: TCP          
+         port: 80               #➡️ Service exposes port 80 inside cluster.
+         targetPort: 80         #➡️ Forwards traffic to container port 80.
+    type: NodePort              #➡️ Exposes the application externally via:
+                                #<NodeIP>:<NodePort>
+                                #Kubernetes will automatically assign a port between:
+                                #30000–32767
+                                
 
