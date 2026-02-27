@@ -1,13 +1,13 @@
 apiVersion: v1                #➡️ Specifies the Kubernetes API version used to create the Service.
-kind: Service                 #➡️ Specifies the Kubernetes API version used to create the Service.
-metadata:                     #➡️ Defines that this resource is a Kubernetes Service.
+kind: Service                 #➡️ Defines that this resource is a Kubernetes Service.
+metadata:                     #➡️ Contains identifying information about the Service.
   name: clusterip             #➡️ Sets the name of the Service as "clusterip".
   labels:                     #➡️ Defines key-value pairs used for organizing and managing the Service.
-     app: clusterip           #➡️ Defines key-value pairs used for organizing and managing the Service.
-spec:                         #➡️ Adds a label with key "apps" and value "clusterip".
-   selector:                  #➡️ Defines the configuration and behavior of the Service.
+     app: clusterip           #➡️ Adds a label with key "apps" and value "clusterip".
+spec:                         #➡️ Defines the configuration and behavior of the Service.
+   selector:                  #➡️ Specifies which Pods this Service should route traffic to.
         app: nginx            #➡️ The Service will forward traffic to Pods that have the label app=nginx. | ⚠️ Important: Your Pod must have the same label (app: nginx) for this to work.
    ports:                     #➡️ Defines the port configuration for the Service.
-     - protocol: TCP          #➡️ Defines the port configuration for the Service.
-       port: 80               #➡️ Specifies that the Service will use the TCP protocol.                               
-   type: ClusterIP            #➡️ Exposes port 80 internally within the cluster.
+     - protocol: TCP          #➡️ Specifies that the Service will use the TCP protocol.
+       port: 80               #➡️ Exposes port 80 internally within the cluster.                 
+   type: ClusterIP            #➡️ Makes this Service accessible only inside the Kubernetes cluster.
