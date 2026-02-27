@@ -1,12 +1,12 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-  labels:
-    apps: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx:latest
-    ports:
-    - containerPort: 80
+apiVersion: v1               #➡️ Specifies the Kubernetes API version used to create this resource.
+kind: Pod                    #➡️ Defines the type of Kubernetes object being created (here, a Pod).
+metadata:                    #➡️ Contains identifying information about the Pod.
+  name: nginx                #➡️ Sets the name of the Pod as "nginx".
+  labels:                    #➡️ Sets the name of the Pod as "nginx".
+     app: nginx              #➡️ Defines key-value tags used to identify and group the Pod.
+spec:                        #➡️ Adds a label with key "apps" and value "nginx" for selection or organization.
+  containers:                #➡️ Defines the desired configuration and behavior of the Pod.
+  - name: nginx              #➡️ Lists the containers that will run inside the Pod.
+    image: nginx:latest      #➡️ Sets the name of the container inside the Pod.
+    ports:                   #➡️ Specifies the Docker image and tag used to create the container.
+    - containerPort: 80      #➡️ Defines which ports the container will expose.
