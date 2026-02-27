@@ -24,6 +24,6 @@ spec:                            #➡️ Defines Service behavior.
          app: nginxlb            #➡️ The Service will forward traffic to pods that have the label app=nginxlb
     ports:                       
        - protocol: TCP           #➡️ Uses TCP protocol.
-         port: 80                #➡️ Uses TCP protocol.
+         port: 80                #➡️ Service exposes port 80.
          targetPort: 80          #➡️ Forwards traffic to container port 80.
     type: LoadBalancer           #➡️ Exposes application externally using a cloud load balancer.
