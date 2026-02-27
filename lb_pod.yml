@@ -1,29 +1,29 @@
-apiVersion: v1 
-kind: Pod 
-metadata: 
-   name: nginxlb
-   labels:
-     apps: nginxlb
-spec: 
-   containers:
-   - name: nginx
-     image: nginx:latest
-     ports:
-     - containerPort: 80
+apiVersion: v1                   #➡️ Uses core Kubernetes API version.
+kind: Pod                        #➡️ Creates a Pod resource.
+metadata:                        #➡️ Contains identity details of the Pod.
+   name: nginxlb                 #➡️ Pod name is nginxlb.
+   labels:                       
+     apps: nginxlb               #➡️ Adds label apps=nginxlb.
+spec:                            #➡️ Defines how the Pod should run.
+   containers:                   #➡️ Lists containers inside the Pod.
+   - name: nginx                 #➡️ Container name is nginx.
+     image: nginx:latest         #➡️ Uses nginx latest image.
+     ports:                      
+     - containerPort: 80         #➡️ Container listens on port 80.
 
---- 
-
-apiVersion: v1
-kind: Service 
-metadata:
-   name: loadbalancer
-   labels:
-     apps: loadbalancer
-spec: 
-    selector:
-         app: nginxlb
-    ports:
-       - protocol: TCP
-         port: 80
-         targetPort: 80
-    type: LoadBalancer      
+---                              #means new resource in same file.
+ 
+apiVersion: v1                   #➡️ Core API version again.
+kind: Service                    #➡️ Creates a Service object.
+metadata:                        
+   name: loadbalancer            #➡️ Service name is loadbalancer.
+   labels:                       
+     apps: loadbalancer          #➡️ Labels for organizing the Service.
+spec:                            #➡️ Defines Service behavior.
+    selector:                    #➡️ Specifies which Pods this service should route traffic to.
+         app: nginxlb            #➡️ The Service will forward traffic to pods that have the label app=nginxlb
+    ports:                       
+       - protocol: TCP           #➡️ Uses TCP protocol.
+         port: 80                #➡️ Uses TCP protocol.
+         targetPort: 80          #➡️ Forwards traffic to container port 80.
+    type: LoadBalancer           #➡️ Exposes application externally using a cloud load balancer.
