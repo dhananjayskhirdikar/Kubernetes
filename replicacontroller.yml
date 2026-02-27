@@ -1,21 +1,21 @@
-apiVersion: v1 
-kind: ReplicationController 
-metadata:
-  name: rc-jioapp
-  labels:
-    apps: rc-jioapp
-spec:
-  replicas: 5
-  selector:
-    app: jioapp
-  template: 
-    metadata:
-      name: jioap
-      labels:
-        app: jioapp
-    spec:
-      containers:
-        - name: nginx
-          image: nginx:latest
-          ports:
-          - containerPort: 80
+apiVersion: v1                          #➡️ Uses core Kubernetes API version.
+kind: ReplicationController             #➡️ Creates a ReplicationController resource.
+metadata:                               #➡️ Contains identity information of the RC.
+  name: rc-jioapp                       #➡️ Name of the ReplicationController is rc-jioapp.
+  labels:                               
+    apps: rc-jioapp                     #➡️ Labels used to organize the RC object.
+spec:                                   #➡️ Defines how the ReplicationController should behave.
+  replicas: 5                           #➡️ Ensures 5 Pods are always running.
+  selector:                             
+    app: jioapp                         #➡️ RC manages Pods that have label app=jioapp.
+  template:                             #➡️ Defines the blueprint for creating Pods.
+    metadata:                           
+      name: jioap                       #➡️ Name for Pods created (optional in modern usage). 
+      labels:                           
+        app: jioapp                     #➡️ Labels assigned to Pods.
+    spec:                               #➡️ Defines how each Pod should run.
+      containers:                       #➡️ List of containers inside each Pod.
+        - name: nginx                   #➡️ Container name is nginx.
+          image: nginx:latest           #➡️ Uses nginx latest Docker image.
+          ports:                        
+          - containerPort: 80           #➡️ Container listens on port 80.
