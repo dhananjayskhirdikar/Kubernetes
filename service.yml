@@ -1,13 +1,13 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: clusterip
-  labels: 
-    apps: clusterip
-spec: 
-   selector:
-        app: nginx
-   ports: 
-     - protocol: TCP  
-       port: 80
-   type: ClusterIP  
+apiVersion: v1                #➡️ Specifies the Kubernetes API version used to create the Service.
+kind: Service                 #➡️ Specifies the Kubernetes API version used to create the Service.
+metadata:                     #➡️ Defines that this resource is a Kubernetes Service.
+  name: clusterip             #➡️ Sets the name of the Service as "clusterip".
+  labels:                     #➡️ Defines key-value pairs used for organizing and managing the Service.
+     app: clusterip           #➡️ Defines key-value pairs used for organizing and managing the Service.
+spec:                         #➡️ Adds a label with key "apps" and value "clusterip".
+   selector:                  #➡️ Defines the configuration and behavior of the Service.
+        app: nginx            #➡️ The Service will forward traffic to Pods that have the label app=nginx. | ⚠️ Important: Your Pod must have the same label (app: nginx) for this to work.
+   ports:                     #➡️ Defines the port configuration for the Service.
+     - protocol: TCP          #➡️ Defines the port configuration for the Service.
+       port: 80               #➡️ Specifies that the Service will use the TCP protocol.                               
+   type: ClusterIP            #➡️ Exposes port 80 internally within the cluster.
