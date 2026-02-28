@@ -1,22 +1,22 @@
-apiVersion:  apps/v1 
-kind: ReplicaSet
-metadata: 
-   name: rs-notin
-   labels:
-      app: rs-notin
-spec:
-  selector:
-    matchExpressions:
-        -  { key: app, operator: NotIn, values: [rsapp,  new-app , nginx-in]}
-  replicas: 3
-  template:
-      metadata: 
-        name: nginx  
-        labels: 
-          app: nginx-notin
-      spec: 
-        containers:
-        - name: nginx 
-          image: nginx:latest
-          ports:
-          - containerPort: 80
+apiVersion:  apps/v1                 #➡️ Uses apps API (required for ReplicaSet).
+kind: ReplicaSet                     #➡️ Creates a ReplicaSet.
+metadata:                            
+   name: rs-notin                    #➡️ ReplicaSet name is rs-notin.
+   labels:                           
+      app: rs-notin                  #➡️ Labels for identifying the ReplicaSet object itself (not for Pod selection).
+spec:                                
+  selector:                          
+    matchExpressions:                #ReplicaSet will manage Pods where:
+        -  { key: app, operator: NotIn, values: [rsapp,  new-app , nginx-in]} #So it selects Pods whose app label is NOT in that list.
+  replicas: 3                        #So it selects Pods whose app label is NOT in that list.
+  template:                          #Template creates Pods with:
+      metadata:                      
+        name: nginx                  #➡️ Pod name prefix (Kubernetes will auto-generate full name).    
+        labels:                      
+          app: nginx-notin           #✔️ Since nginx-notin is in the list → it matches correctly. |So ReplicaSet will manage these Pods.
+      spec:                          
+        containers:                  
+        - name: nginx                #➡️ Container name.
+          image: nginx:latest        #➡️ Uses nginx Docker image.
+          ports:                     
+          - containerPort: 80        #➡️ Container listens on port 80.
