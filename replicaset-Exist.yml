@@ -1,22 +1,22 @@
-apiVersion:  apps/v1 
-kind: ReplicaSet
-metadata: 
-   name: rs-exist
-   labels:
-      app: rs-exist 
-spec:
-  selector:
-    matchExpressions:
-        -  { key: app, operator: Exists}
-  replicas: 3
-  template:
-      metadata: 
-        name: nginx  
-        labels: 
-          app: nginx-exist
-      spec: 
-        containers:
-        - name: nginx 
-          image: nginx:latest
-          ports:
-          - containerPort: 80
+apiVersion:  apps/v1                      #➡️ Uses the apps API group required for ReplicaSet.
+kind: ReplicaSet                          #➡️ Creates a ReplicaSet resource.
+metadata:                                 
+   name: rs-exist                         #➡️ ReplicaSet name is rs-exist.
+   labels:                                
+      app: rs-exist                       #➡️ Labels used to identify the ReplicaSet object itself (not for Pod selection).
+spec:                                     
+  selector:                               #
+    matchExpressions:                     #
+        -  { key: app, operator: Exists}  #ReplicaSet will manage ALL Pods that have the label key app, regardless of its value.
+  replicas: 3                             #➡️ ReplicaSet ensures exactly 3 Pods that match selector are running.
+  template:                               
+      metadata:                           
+        name: nginx                       
+        labels:                           
+          app: nginx-exist                #This means ReplicaSet will create Pods with:
+      spec:                               #And the Pod has app label → it matches perfectly.
+        containers:                       
+        - name: nginx                     
+          image: nginx:latest             
+          ports:                          
+          - containerPort: 80             
