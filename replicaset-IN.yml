@@ -1,22 +1,22 @@
-apiVersion:  apps/v1 
-kind: ReplicaSet
-metadata: 
-   name: rs
-   labels:
-      app: rs 
-spec:
-  selector:
-    matchExpressions:
-        -  { key: app, operator: In , values: [rsapp,  new-app , nginx-in]}
-  replicas: 3
-  template:
-      metadata: 
-        name: nginx  
-        labels: 
-          app: nginx-in 
-      spec: 
-        containers:
-        - name: nginx 
-          image: nginx:latest
-          ports:
-          - containerPort: 80
+apiVersion:  apps/v1               #➡️ Uses apps API group (required for ReplicaSet).
+kind: ReplicaSet                   #➡️ Creates a ReplicaSet resource.
+metadata:                          
+   name: rs                        #➡️ Name of the ReplicaSet is rs.
+   labels:                         
+      app: rs                      #➡️ Labels for identifying the ReplicaSet object (not related to Pod selection).
+spec:                              #➡️ Defines ReplicaSet behavior.
+  selector:                        #
+    matchExpressions:              #ReplicaSet will manage Pods where:
+        -  { key: app, operator: In , values: [rsapp,  new-app , nginx-in]}  #ReplicaSet will manage Pods where:
+  replicas: 3                      #➡️ ReplicaSet ensures exactly 3 Pods are running.
+  template:                        #➡️ Blueprint for creating new Pods.
+      metadata:                    
+        name: nginx                #➡️ Pod name prefix (Kubernetes will auto-generate full name).
+        labels:                    
+          app: nginx-in            #✔️ Since nginx-in is in the list → it matches correctly. |So ReplicaSet will manage these Pods.
+      spec:                        
+        containers:                
+        - name: nginx              #➡️ Container name.
+          image: nginx:latest      #➡️ Uses nginx Docker image.
+          ports:                   
+          - containerPort: 80      #➡️ Container listens on port 80.
