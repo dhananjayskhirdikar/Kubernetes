@@ -1,22 +1,22 @@
-apiVersion:  apps/v1 
-kind: ReplicaSet
-metadata: 
-   name: rsml
-   labels:
-      app: rsml
-spec:
-  selector:
-    matchLabels: 
-        app: nginx-ml
-  replicas: 3
-  template:
-      metadata: 
-        name: nginx  
-        labels: 
-          app: nginx-ml
-      spec: 
-        containers:
-        - name: nginx 
-          image: nginx:latest
-          ports:
-          - containerPort: 80
+apiVersion:  apps/v1               #➡️ Uses apps API group required for ReplicaSet.
+kind: ReplicaSet                   #➡️ Creates a ReplicaSet resource.
+metadata:                          
+   name: rsml                      #➡️ Name of ReplicaSet is rsml.
+   labels:                         
+      app: rsml                    #➡️ Labels for identifying the ReplicaSet object (not used for Pod selection).
+spec:                              #➡️ Defines ReplicaSet behavior.
+  selector:                        
+    matchLabels:                   
+        app: nginx-ml              #ReplicaSet will manage Pods where: app = nginx-ml &This is an exact match condition.
+  replicas: 3                      #➡️ ReplicaSet ensures exactly 3 Pods are running.
+  template:                        
+      metadata:                    
+        name: nginx                
+        labels:                    
+          app: nginx-ml            
+      spec:                        
+        containers:                
+        - name: nginx              
+          image: nginx:latest      #➡️ Each Pod runs nginx container.
+          ports:                   
+          - containerPort: 80      #➡️ Container listens on port 80.
