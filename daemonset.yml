@@ -1,21 +1,21 @@
-apiVersion: apps/v1 
-kind: DaemonSet
-metadata:
-  name: cwatchagent
-  labels:
-    app:  ds 
-spec:
-   selector:
-      matchLabels:
-        app: cwatchagent
-   template:
-      metadata: 
-        name: cwatchagent 
-        labels: 
-          app: cwatchagent
-      spec: 
-        containers:
-        - name: nginx 
-          image: amazon/cloudwatch-agent
-          ports:
-          - containerPort: 80
+apiVersion: apps/v1                          #➡️ Uses the apps API group required for DaemonSet. 
+kind: DaemonSet                              #➡️ Creates a DaemonSet object.|👉 Ensures one Pod runs on every node in the cluster.
+metadata:                                    
+  name: cwatchagent                          #➡️ Name of the DaemonSet is cwatchagent.
+  labels:                                    
+    app:  ds                                 #➡️ Labels for identifying the DaemonSet itself (not used for Pod selection).
+spec:                                        #➡️ Defines how the DaemonSet behaves.
+   selector:                                 
+      matchLabels:                            
+        app: cwatchagent                     #➡️ The DaemonSet will manage Pods that have: app = cwatchagent 
+   template:                                 #➡️ Defines how each Pod created by this DaemonSet should look.
+      metadata:                              
+        name: cwatchagent                    #➡️ Pod name prefix (Kubernetes auto-generates full names per node).
+        labels:                              
+          app: cwatchagent                   #✔️ Matches selector → correct configuration.
+      spec:                                  
+        containers:                          #➡️ Defines container(s) inside each Pod.
+        - name: nginx                        #➡️ Container name (just an identifier).
+          image: amazon/cloudwatch-agent     #➡️ Uses AWS CloudWatch Agent image.
+          ports:                             
+          - containerPort: 80                #➡️ Declares container port 80.
