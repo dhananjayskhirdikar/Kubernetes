@@ -1,26 +1,26 @@
-apiVersion: apps/v1
-kind : Deployment
-metadata: 
-    name: nginxdeployment
-    labels:
-      apps: nginx
-spec: 
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
-    selector:
-      matchLabels: 
-        app: nginxdeployment
-    replicas: 3
-    template:
-      metadata:
-        labels:
-           app: nginxdeployment
-      spec:
-        containers: 
-        - name: nginxdeployment-container
-          image: httpd:latest
-          ports: 
-            - containerPort: 80
+apiVersion: apps/v1                           #➡️ Uses apps API group required for Deployment.
+kind : Deployment                             #➡️ Creates a Deployment object.
+metadata:                                     
+    name: nginxdeployment                     #➡️ Name of Deployment is nginxdeployment.
+    labels:                                   
+      apps: nginx                             #➡️ Labels for identifying the Deployment object (not used for Pod selection).
+spec:                                         #➡️ Defines how Deployment behaves.
+    strategy:                                 
+      type: RollingUpdate                     #➡️ Uses RollingUpdate strategy (default strategy).
+      rollingUpdate:                          
+        maxSurge: 1                           #➡️ During update, Kubernetes can create 1 extra Pod above desired replicas.
+        maxUnavailable: 1                     #➡️ At most 1 Pod can be unavailable during update.
+    selector:                                 
+      matchLabels:                            #➡️ Deployment manages Pods with:
+        app: nginxdeployment                  #app = nginxdeployment
+    replicas: 3                               #➡️ Deployment ensures 3 Pods are always running.
+    template:                                 
+      metadata:                               
+        labels:                               
+           app: nginxdeployment               #✔️ Matches selector correctly.
+      spec:                                   
+        containers:                           
+        - name: nginxdeployment-container     #➡️ Container name.
+          image: httpd:latest                 #➡️ Uses Apache HTTPD image (not nginx actually).
+          ports:                              
+            - containerPort: 80               #➡️ Container listens on port 80.
