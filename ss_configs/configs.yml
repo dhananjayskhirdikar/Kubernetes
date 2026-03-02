@@ -1,8 +1,8 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-configmaps
-  labels:
-     app: mysql-configmaps
-data: 
-  mysqlkey: "1234"
+apiVersion: v1                  #➡️ Uses the core Kubernetes API group (v1) for basic objects like ConfigMap.
+kind: ConfigMap                 #➡️ Creates a ConfigMap object. |👉 Used to store non-sensitive configuration data.
+metadata:                       
+  name: mysql-configmaps        #➡️ Name of the ConfigMap is mysql-configmaps.| You will reference this name inside Pods or Deployments.
+  labels:                       #
+     app: mysql-configmaps      #➡️ Labels used for organizing the ConfigMap (not mandatory, but good practice).
+data:                           
+  mysqlkey: "1234"              #➡️ Stores key-value pairs.
