@@ -1,25 +1,27 @@
-apiVersion: apps/v1
-kind: StatefulSet 
-metadata: 
-  name: mysqlstatefulset
-  labels:
-     app: mysqlstatefulset
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-       app: mysqlstatefulset
-  template:
-    metadata:
-      name: mysqlstatefulset
-      labels:
-         app: mysqlstatefulset
-    spec:
-      containers: 
-      - name: mysqlstatefulset
-        image: mysql:latest
-        ports:
-        - containerPort: 3306
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "12345678"
+apiVersion: apps/v1                    #➡️ Uses apps API group required for StatefulSet.
+kind: StatefulSet                      #➡️ Creates a StatefulSet resource.
+metadata:                              
+  name: mysqlstatefulset               #➡️ Name of the StatefulSet.
+  labels:                              
+     app: mysqlstatefulset             #➡️ Labels for identifying the StatefulSet object.
+spec:                                  
+  replicas: 3                          #➡️ Creates 3 MySQL Pods.
+  selector:                            
+    matchLabels:                       #➡️ StatefulSet manages Pods with label:
+       app: mysqlstatefulset           #app = mysqlstatefulset
+  template:                            #Must match template labels.
+    metadata:                          
+      name: mysqlstatefulset           
+      labels:                          
+         app: mysqlstatefulset         #Must match template labels.
+    spec:                              
+      containers:                      
+      - name: mysqlstatefulset         
+        image: mysql:latest            #➡️ Each Pod runs MySQL container.
+        ports:                         
+        - containerPort: 3306          #➡️ MySQL listens on port 3306.
+        env:                           
+        - name: MYSQL_ROOT_PASSWORD    
+          value: "12345678"            #➡️ Sets MySQL root password. 
+                                       # n production, NEVER hardcode passwords.
+                                       #  Use:  Secret , Not plain text
